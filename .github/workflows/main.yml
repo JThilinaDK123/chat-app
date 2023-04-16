@@ -49,7 +49,7 @@ jobs:
             docker images         
       - name: Deploy to minikube
         run:
-          kubectl apply -f nodejs-k8s-learn1/
+          kubectl apply -f deployment.yml
       - name: Test service URLs
         run: |
             minikube service list
