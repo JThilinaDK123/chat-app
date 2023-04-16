@@ -32,7 +32,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  deploy:
+  Kubenetes:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -53,4 +53,4 @@ jobs:
       - name: Test service URLs
         run: |
             minikube service list
-            minikube service nodejs-app --url
+            minikube service service-nodeapp --url
