@@ -33,17 +33,25 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
-    name: Deploy to Kubernetes
     runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Create kubeconfig
-      run: |
-        mkdir ${HOME}/.kube
-        echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
-        cat ${HOME}/.kube/config
-    - name: Use context
-      run: kubectl config use-context docker-desktop
-    - name: Deploy to K8s
-      run: kubectl apply -f nodejs-k8s-learn1/
+      name: build Node.js Docker Image and deploy to minikube
+      steps:
+      - uses: actions/checkout@v2
+      - name: Start minikube
+        uses: medyagh/setup-minikube@master
+      - name: Try the cluster !
+        run: kubectl get pods -A
+      - name: Build image
+        run: |
+            export SHELL=/bin/bash
+            eval $(minikube -p minikube docker-env)
+            docker build -f ./Dockerfile -t thilina9718/deploy-app:latest .
+            echo -n "verifying images:"
+            docker images         
+      - name: Deploy to minikube
+        run:
+          kubectl apply -f nodejs-k8s-learn1/
+      - name: Test service URLs
+        run: |
+            minikube service list
+            minikube service nodejs-app --url
