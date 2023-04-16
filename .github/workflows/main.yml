@@ -34,8 +34,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-      name: build Node.js Docker Image and deploy to minikube
-      steps:
+    steps:
       - uses: actions/checkout@v2
       - name: Start minikube
         uses: medyagh/setup-minikube@master
