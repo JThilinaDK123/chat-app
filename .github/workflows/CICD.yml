@@ -19,9 +19,9 @@ jobs:
         run: |
           export SHELL=/bin/bash
           eval $(minikube -p minikube docker-env)
-          make deploy-app
+          docker build -f ./Dockerfile -t thilina9718/deploy-app:latest .
           echo -n "verifying images:"
-          docker images
+          docker images 
       - name: Deploy to minikube
         run: |
           kubectl apply -f deployment.yaml
