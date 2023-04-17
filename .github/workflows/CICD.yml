@@ -31,7 +31,7 @@ jobs:
           minikube service list
           kubectl get svc -o wide
           kubectl get ep -o wide
-          kubectl expose deployment service-nodeapp --type=LoadBalancer --port=8080
+          kubectl expose deployment deployment-nodeapp --type=LoadBalancer --port=8080
           minikube service service-nodeapp --url
           echo -n "------------------opening the service------------------"
           curl $(minikube service service-nodeapp --url)/version
