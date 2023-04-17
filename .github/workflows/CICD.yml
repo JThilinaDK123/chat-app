@@ -30,4 +30,4 @@ jobs:
           minikube service list
           minikube service service-nodeapp --url
           echo -n "------------------opening the service------------------"
-          curl $(minikube service discover --url)/version
+          curl $(minikube service service-nodeapp --url)/version
